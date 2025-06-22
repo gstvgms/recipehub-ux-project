@@ -1,0 +1,452 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* New warm, appetizing color palette based on color psychology */
+    --background: 40 30% 98%;
+    --foreground: 20 10% 15%;
+
+    --card: 40 30% 98%;
+    --card-foreground: 20 10% 15%;
+
+    --popover: 40 30% 98%;
+    --popover-foreground: 20 10% 15%;
+
+    /* Warm orange-red that stimulates appetite */
+    --primary: 12 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Add this line to define RGB values for the primary color */
+    --primary-rgb: 230, 73, 45; /* RGB equivalent of the HSL primary color */
+
+    /* Soft sage green for freshness and health */
+    --secondary: 120 15% 85%;
+    --secondary-foreground: 120 30% 20%;
+
+    /* Warm yellow for energy and positivity */
+    --accent: 40 90% 65%;
+    --accent-foreground: 20 10% 15%;
+
+    --muted: 30 20% 92%;
+    --muted-foreground: 20 10% 40%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 15% 85%;
+    --input: 30 15% 85%;
+    --ring: 12 85% 55%;
+
+    --radius: 0.6rem;
+  }
+
+  .dark {
+    --background: 20 15% 10%;
+    --foreground: 40 10% 90%;
+
+    --card: 20 15% 10%;
+    --card-foreground: 40 10% 90%;
+
+    --popover: 20 15% 10%;
+    --popover-foreground: 40 10% 90%;
+
+    /* Brighter orange-red for dark mode */
+    --primary: 12 85% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Darker sage green for dark mode */
+    --secondary: 120 10% 25%;
+    --secondary-foreground: 120 15% 85%;
+
+    /* Warmer yellow for dark mode */
+    --accent: 40 80% 60%;
+    --accent-foreground: 20 10% 15%;
+
+    --muted: 20 10% 20%;
+    --muted-foreground: 40 10% 70%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 20 15% 25%;
+    --input: 20 15% 25%;
+    --ring: 12 85% 60%;
+  }
+
+  /* High Contrast Mode - Light */
+  .high-contrast:not(.dark) {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+
+    --primary: 0 100% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 120 100% 25%;
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 40 100% 45%;
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 0 0% 85%;
+    --muted-foreground: 0 0% 0%;
+
+    --destructive: 0 100% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 0 100% 45%;
+  }
+
+  /* High Contrast Mode - Dark */
+  .high-contrast.dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 12 100% 60%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 120 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+
+    --accent: 40 100% 60%;
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 100%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 0%;
+
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+    --ring: 12 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Estilos de foco consistentes */
+:focus-visible {
+  @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+}
+
+/* Melhorias de acessibilidade */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Animações suaves */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Estilos específicos para modo de alto contraste */
+.high-contrast .text-muted-foreground {
+  @apply text-foreground opacity-90;
+}
+
+.high-contrast button,
+.high-contrast a,
+.high-contrast [role="button"] {
+  @apply focus:ring-4 focus:ring-primary;
+}
+
+.high-contrast input,
+.high-contrast textarea,
+.high-contrast select {
+  @apply border-2;
+}
+
+.high-contrast .hover\:bg-accent:hover {
+  @apply bg-primary bg-opacity-20;
+}
+
+.high-contrast .hover\:text-accent-foreground:hover {
+  @apply text-foreground;
+}
+
+/* Estilos para visualização em lista */
+.list-view .recipe-card {
+  @apply flex flex-col sm:flex-row h-auto;
+}
+
+.list-view .recipe-card .recipe-image {
+  @apply sm:w-1/3 aspect-auto sm:aspect-square;
+}
+
+.list-view .recipe-card .recipe-content {
+  @apply sm:w-2/3 flex flex-col;
+}
+
+.list-view .recipe-card .recipe-description {
+  @apply line-clamp-3;
+}
+
+/* Estilos para impressão */
+@media print {
+  /* Esconder elementos desnecessários */
+  header,
+  footer,
+  nav,
+  .print:hidden,
+  button:not(.print-visible),
+  .scroll-to-bottom,
+  .pagination,
+  .search-bar,
+  .filters {
+    display: none !important;
+  }
+
+  /* Estilos gerais para impressão */
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Ajustes para a página de receita */
+  .recipe-print-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    display: block;
+  }
+
+  /* Cabeçalho da receita */
+  .recipe-print-header {
+    text-align: center;
+    margin-bottom: 1cm;
+  }
+
+  .recipe-print-header h1 {
+    font-size: 18pt;
+    margin-bottom: 0.5cm;
+  }
+
+  /* Seções da receita */
+  .recipe-print-section {
+    margin-bottom: 1cm;
+    page-break-inside: avoid;
+  }
+
+  .recipe-print-section h2 {
+    font-size: 14pt;
+    border-bottom: 1pt solid #ccc;
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.5cm;
+  }
+
+  /* Listas */
+  .recipe-print-list {
+    padding-left: 0.5cm;
+  }
+
+  .recipe-print-list li {
+    margin-bottom: 0.2cm;
+  }
+
+  /* Evitar quebras de página em lugares indesejados */
+  h1,
+  h2,
+  h3,
+  li {
+    page-break-after: avoid;
+  }
+
+  /* Forçar quebras de página quando necessário */
+  .page-break {
+    page-break-before: always;
+  }
+
+  /* Mostrar URLs de links */
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: 90%;
+  }
+
+  /* Ajustes para imagens */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+}
+
+/* Estilos para acessibilidade */
+.text-size-normal {
+  font-size: 1rem;
+}
+
+.text-size-large {
+  font-size: 1.125rem;
+}
+
+.text-size-xl {
+  font-size: 1.25rem;
+}
+
+.text-spacing-normal {
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+.text-spacing-wide {
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+}
+
+.text-spacing-wider {
+  letter-spacing: 0.1em;
+  word-spacing: 0.15em;
+}
+
+.focus-visible-outline *:focus-visible {
+  outline: 3px solid var(--primary) !important;
+  outline-offset: 3px !important;
+}
+
+/* Enhanced UI elements */
+.recipe-card {
+  @apply transition-all duration-300 hover:shadow-lg border border-border/50 hover:border-primary/30;
+}
+
+/* Enhanced interactive elements */
+.recipe-card {
+  @apply relative;
+}
+
+.recipe-card::after {
+  content: "";
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300 pointer-events-none;
+  background: radial-gradient(circle at center, rgba(var(--primary-rgb), 0.1) 0%, transparent 70%);
+}
+
+.recipe-card:hover::after {
+  @apply opacity-100;
+}
+
+.recipe-card .recipe-image::before {
+  content: "";
+  @apply absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 transition-opacity duration-300 z-10;
+}
+
+.recipe-card:hover .recipe-image::before {
+  @apply opacity-100;
+}
+
+.recipe-card .recipe-image {
+  @apply overflow-hidden;
+}
+
+.recipe-card .recipe-image img {
+  @apply transition-transform duration-500 hover:scale-110;
+}
+
+.recipe-card .recipe-content {
+  @apply bg-gradient-to-b from-background to-muted/30;
+}
+
+/* Enhanced buttons */
+.btn-primary {
+  @apply bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground shadow-md hover:shadow-lg transition-all duration-300;
+}
+
+/* Button hover effects */
+.btn-hover-effect {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.btn-hover-effect::before {
+  content: "";
+  @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-300;
+  transform: translateY(100%);
+}
+
+.btn-hover-effect:hover::before {
+  @apply opacity-10;
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  @apply bg-gradient-to-r from-secondary to-secondary/90 hover:from-secondary/90 hover:to-secondary text-secondary-foreground shadow-sm hover:shadow-md transition-all duration-300;
+}
+
+.btn-accent {
+  @apply bg-gradient-to-r from-accent to-accent/90 hover:from-accent/90 hover:to-accent text-accent-foreground shadow-sm hover:shadow-md transition-all duration-300;
+}
+
+/* Enhanced badges */
+.badge-primary {
+  @apply bg-primary/15 text-primary border border-primary/30 font-medium;
+}
+
+/* Pulse effect for featured recipes */
+@keyframes soft-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--primary-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+  }
+}
+
+.recipe-card.featured .badge-pulse {
+  animation: soft-pulse 2s infinite;
+}
+
+.badge-secondary {
+  @apply bg-secondary/20 text-secondary-foreground border border-secondary/30 font-medium;
+}
+
+.badge-accent {
+  @apply bg-accent/20 text-accent-foreground border border-accent/30 font-medium;
+}
+
+/* Enhanced cards */
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-md hover:border-primary/30;
+}
+
+/* Enhanced inputs */
+.input-enhanced {
+  @apply border-input bg-background hover:border-primary/50 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300;
+}
